@@ -22,9 +22,11 @@ namespace Breakout
 		Texture2D blockTexture;
 		Texture2D pixelTexture;
 		Texture2D ballTexture;
+		Texture2D winMessage;
 		List<Rectangle> blocks;
 		Rectangle paddle;
 		Rectangle ball;
+		bool showWinMessage = false;
 
 		Vector2 ballSpeed;
 
@@ -90,6 +92,7 @@ namespace Breakout
 
 			blockTexture = Content.Load<Texture2D>("block");
 			ballTexture = Content.Load<Texture2D>("ball");
+			winMessage = Content.Load<Texture2D>("winMessage");
 
 			pixelTexture = new Texture2D(GraphicsDevice, 1, 1);
 			pixelTexture.SetData<Color>(new Color[] { Color.White });
@@ -131,6 +134,7 @@ namespace Breakout
 				{
 					gameRunning = true;
 					ballSpeed.Y = -5;
+					showWinMessage = false;
 				}
 			}
 
@@ -155,6 +159,7 @@ namespace Breakout
 
 			if (blocks.Count() == 0)
 			{
+				showWinMessage = true;
 				ResetLevel();
 				return;
 			}
@@ -194,6 +199,9 @@ namespace Breakout
 			spriteBatch.Draw(pixelTexture, paddle, Color.White);
 
 			spriteBatch.Draw(ballTexture, ball, Color.White);
+
+			if (showWinMessage)
+				spriteBatch.Draw(winMessage, new Vector2(0, -50), Color.White);
 
 			spriteBatch.End();
 
