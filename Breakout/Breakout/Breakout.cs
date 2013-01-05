@@ -118,6 +118,10 @@ namespace Breakout
 			var mouseState = Mouse.GetState();
 
 			paddle.X = mouseState.X;
+			if (paddle.X < 0)
+				paddle.X = 0;
+			if (paddle.X > graphics.PreferredBackBufferWidth - paddle.Width)
+				paddle.X = graphics.PreferredBackBufferWidth - paddle.Width;
 
 			if (!gameRunning)
 			{
